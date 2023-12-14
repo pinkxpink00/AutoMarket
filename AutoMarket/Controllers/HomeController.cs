@@ -1,6 +1,7 @@
 ﻿using AutoMarket.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using AutoMarket.Domain.Models;
 
 namespace AutoMarket.Controllers
 {
@@ -15,6 +16,13 @@ namespace AutoMarket.Controllers
 
         public IActionResult Index()
         {
+            Car car = new Car()
+            {
+                Name = "BMW",
+                Speed = 40000,
+                Model = "320i",
+                Id = 1,
+            };
             return View();
         }
 
