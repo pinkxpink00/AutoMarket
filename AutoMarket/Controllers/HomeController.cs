@@ -23,7 +23,7 @@ namespace AutoMarket.Controllers
                 Model = "320i",
                 Id = 1,
             };
-            return View();
+            return View(car);
         }
 
         public IActionResult Privacy()
