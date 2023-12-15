@@ -1,11 +1,7 @@
 using AutoMarket.DAL;
 using Microsoft.EntityFrameworkCore;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -16,15 +12,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
-
-using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
-{
-    var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-
-    // Применение миграций для обновления или создания базы данных
-    dbContext.Database.Migrate();
-}
 
 // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
