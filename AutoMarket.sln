@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMarket", "AutoMarket\AutoMarket.csproj", "{7469A812-155B-4F87-A5E4-61F8928C58A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMarket", "AutoMarket\AutoMarket.csproj", "{7469A812-155B-4F87-A5E4-61F8928C58A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{BC28E842-3164-4514-AB0C-B5F8992AD743}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMarket.Domain", "AutoMarket.Domain\AutoMarket.Domain.csproj", "{044D0E2F-7176-4EBE-9B10-32F8FC546EC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMarket.Domain", "AutoMarket.Domain\AutoMarket.Domain.csproj", "{044D0E2F-7176-4EBE-9B10-32F8FC546EC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{CEFFB2D1-EDBB-4C95-874D-87FC770FFD2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMarket.DAL", "AutoMarket.DAL\AutoMarket.DAL.csproj", "{509117B0-81FE-4D65-80EF-F82DC492C63E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +27,17 @@ Global
 		{044D0E2F-7176-4EBE-9B10-32F8FC546EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{044D0E2F-7176-4EBE-9B10-32F8FC546EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{044D0E2F-7176-4EBE-9B10-32F8FC546EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509117B0-81FE-4D65-80EF-F82DC492C63E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509117B0-81FE-4D65-80EF-F82DC492C63E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509117B0-81FE-4D65-80EF-F82DC492C63E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509117B0-81FE-4D65-80EF-F82DC492C63E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{044D0E2F-7176-4EBE-9B10-32F8FC546EC1} = {BC28E842-3164-4514-AB0C-B5F8992AD743}
+		{509117B0-81FE-4D65-80EF-F82DC492C63E} = {CEFFB2D1-EDBB-4C95-874D-87FC770FFD2A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26B5E8DD-20DF-458B-BC24-AC2BE1425966}
