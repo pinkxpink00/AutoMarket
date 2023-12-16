@@ -12,9 +12,6 @@ namespace AutoMarket.DAL
 
         public DbSet<Car> Car { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.LogTo(Console.WriteLine);
-        }
+      
     }
 }
