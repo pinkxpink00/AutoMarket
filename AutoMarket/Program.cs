@@ -8,6 +8,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connection));
 
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
