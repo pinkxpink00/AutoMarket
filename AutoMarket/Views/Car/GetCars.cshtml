@@ -1,10 +1,11 @@
 ﻿@model List<AutoMarket.Domain.Models.Car>
 
-    @foreach (var car in Model)
-    {
-        <p>car.Name</p>
-        <p>car.Model</p>
-        <p>car.Description</p>
-        <p>car.Price</p>
-        <p>car.DataCreate</p>
-    }
+@foreach (var car in Model)
+{
+    <p>Name: @car.Name</p>
+    <p>Model: @car.Model</p>
+    <p>Description: @car.Description</p>
+    <p>Price: @car.Price</p>
+    <p>DataCreate: @car.DateCreate</p>
+    <hr /> <!-- Добавлен разделитель между каждым автомобилем -->
+}
