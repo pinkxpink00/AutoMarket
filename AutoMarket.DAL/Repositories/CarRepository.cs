@@ -15,7 +15,7 @@ namespace AutoMarket.DAL.Repositories
 
         public CarRepository(ApplicationDbContext db)
         {
-            db = _db;
+            _db = db;
         }
 
         public bool Create(Car entity)
@@ -33,7 +33,7 @@ namespace AutoMarket.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Car GetByName(string name)
+        public Task<Car> GetByName(string name)
         {
             throw new NotImplementedException();
         }

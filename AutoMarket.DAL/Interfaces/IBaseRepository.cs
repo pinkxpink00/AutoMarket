@@ -8,7 +8,7 @@ namespace AutoMarket.DAL.Interfaces
 
         T Get(int id);
 
-        Task<List<Car>> Select();
+        Task<List<T>> Select();
 
         bool Delete(T entity);
     }

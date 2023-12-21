@@ -1,4 +1,6 @@
 using AutoMarket.DAL;
+using AutoMarket.DAL.Interfaces;
+using AutoMarket.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+builder.Services.AddScoped<ICarRepository, CarRepository>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
