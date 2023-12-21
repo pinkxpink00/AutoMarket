@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMarket.DAL.Interfaces;
+﻿using AutoMarket.DAL.Interfaces;
 using AutoMarket.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,24 +13,28 @@ namespace AutoMarket.DAL.Repositories
             _db = db;
         }
 
-        public bool Create(Car entity)
+        public async Task<bool> Create(Car entity)
         {
-            throw new NotImplementedException();
+            await _db.Car.AddAsync(entity);
+            await _db.SaveChangesAsync();
+            return true;
         }
 
-        public bool Delete(Car entity)
+        public async Task<bool> Delete(Car entity)
         {
-            throw new NotImplementedException();
+            _db.Car.Remove(entity);
+            await _db.SaveChangesAsync();
+            return true;
         }
 
-        public Car Get(int id)
+        public async Task<Car> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Car.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<Car> GetByName(string name)
+        public async Task<Car> GetByName(string name)
         {
-            throw new NotImplementedException();
+            return await _db.Car.FirstOrDefaultAsync(x => x.Name == name);
         }
 
         public Task<List<Car>> Select()

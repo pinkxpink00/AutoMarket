@@ -13,17 +13,9 @@ namespace AutoMarket.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
-            Car car = new Car()
-            {
-                Name = "BMW",
-                Speed = 40000,
-                Model = "320i",
-                Id = 1,
-            };
-            return View(car);
+            return View();
         }
 
         public IActionResult Privacy()
