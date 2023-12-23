@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AutoMarket.DAL\AutoMarket.DAL.csproj" />
+    <ProjectReference Include="..\AutoMarket.Domain\AutoMarket.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

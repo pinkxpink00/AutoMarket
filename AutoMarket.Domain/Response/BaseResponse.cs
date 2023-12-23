@@ -14,11 +14,12 @@ namespace AutoMarket.Domain.Response
         
         public StatusCode StatusCode { get; set; }
 
-        public T Data { get; }
+        public T Data { get; set; }
     }
 
     public interface IBaseResponse<T>
     {
-        T Data { get; }
+        T Data { get; set; }
+        StatusCode StatusCode { get; }
     }
 }
