@@ -2,6 +2,7 @@
 using AutoMarket.Domain.Enum;
 using AutoMarket.Domain.Models;
 using AutoMarket.Domain.Response;
+using AutoMarket.Domain.ViewModels.Car;
 using AutoMarket.Service.Interfaces;
 
 namespace AutoMarket.Service.Implementations
@@ -37,11 +38,69 @@ namespace AutoMarket.Service.Implementations
             {
                 return new BaseResponse<Car>()
                 {
-                    Description = $"[GetCars] : {ex.Message}"
+                    Description = $"[GetCar] : {ex.Message}"
                 };
             }
 
            
+        }
+
+        public async Task<IBaseResponse<bool>> CreateCar(CarViewModel carViewModel)
+        {
+            var baseResponse = new BaseResponse<bool>();
+
+            try
+            {
+                var car = new Car()
+                {
+                    Description = carViewModel.Description,
+                    DateCreate = DateTime.Now,
+                    Speed = carViewModel.Speed,
+                    Model = carViewModel.Model,
+                    Price = carViewModel.Price,
+                    Name = carViewModel.Name,
+                    TypeCar = (TypeCar)Convert.ToInt32(carViewModel.TypeCar)
+                };
+
+                await _carRepository.Create(car);
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[CreateCar] : {ex.Message}"
+                };
+            }
+
+            return baseResponse;
+        }
+
+        public async Task<IBaseResponse<bool>> DeleteCar(int id)
+        {
+            var baseResponse = new BaseResponse<bool>();
+            try
+            {
+                var car = await _carRepository.Get(id);
+                if (car == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+                    baseResponse.Data = false;
+
+                    return baseResponse;
+                }
+
+                await _carRepository.Delete(car);
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[DeleteCar] : {ex.Message}"
+                };
+            }
+
+            return baseResponse;
         }
 
         public async Task<IBaseResponse<Car>> GetCarByName(string name)
@@ -66,7 +125,7 @@ namespace AutoMarket.Service.Implementations
             {
                 return new BaseResponse<Car>()
                 {
-                    Description = $"[GetCars] : {ex.Message}"
+                    Description = $"[GetCarByName] : {ex.Message}"
                 };
             }
 
