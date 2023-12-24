@@ -20,6 +20,35 @@ namespace AutoMarket.Service.Implementations
             _carRepository = carRepository;
         }
 
+        public async Task<IBaseResponse<Car>> GetCar(int id)
+        {
+            var baseResponse = new BaseResponse<Car>();
+
+            try
+            {
+                var car = await _carRepository.Get(id);
+                if (car == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+
+                    return baseResponse;
+                }
+
+                baseResponse.Data = car;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[GetCars] : {ex.Message}"
+                };
+            }
+
+            return baseResponse;
+        }
+
         public async Task<IBaseResponse<IEnumerable<Car>>> GetCars()
         {
             var baseResponse = new BaseResponse<IEnumerable<Car>>();

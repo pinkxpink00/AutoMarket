@@ -17,6 +17,7 @@ namespace AutoMarket.DAL.Repositories
         {
             await _db.Car.AddAsync(entity);
             await _db.SaveChangesAsync();
+
             return true;
         }
 
@@ -24,10 +25,11 @@ namespace AutoMarket.DAL.Repositories
         {
             _db.Car.Remove(entity);
             await _db.SaveChangesAsync();
+
             return true;
         }
 
-        public async Task<Car> GetAsync(int id)
+        public async Task<Car> Get(int id)
         {
             return await _db.Car.FirstOrDefaultAsync(x => x.Id == id);
         }

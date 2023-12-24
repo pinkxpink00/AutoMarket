@@ -25,7 +25,7 @@ namespace AutoMarket.Controllers
                 return View(response.Data);
             }
 
-            return RedirectToAction("Error");
+            return RedirectToAction(Error);
         }
     }
 }
