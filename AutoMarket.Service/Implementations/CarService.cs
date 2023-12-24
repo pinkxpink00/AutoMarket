@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMarket.DAL.Interfaces;
+﻿using AutoMarket.DAL.Interfaces;
 using AutoMarket.Domain.Enum;
 using AutoMarket.Domain.Models;
 using AutoMarket.Domain.Response;
@@ -27,6 +22,35 @@ namespace AutoMarket.Service.Implementations
             try
             {
                 var car = await _carRepository.Get(id);
+                if (car == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+
+                    return baseResponse;
+                }
+
+                baseResponse.Data = car;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[GetCars] : {ex.Message}"
+                };
+            }
+
+           
+        }
+
+        public async Task<IBaseResponse<Car>> GetCarByName(string name)
+        {
+            var baseResponse = new BaseResponse<Car>();
+
+            try
+            {
+                var car = await _carRepository.GetCarByName(name);
                 if (car == null)
                 {
                     baseResponse.Description = "User not found";

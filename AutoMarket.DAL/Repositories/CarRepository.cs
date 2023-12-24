@@ -34,7 +34,7 @@ namespace AutoMarket.DAL.Repositories
             return await _db.Car.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Car> GetByName(string name)
+        public async Task<Car> GetCarByName(string name)
         {
             return await _db.Car.FirstOrDefaultAsync(x => x.Name == name);
         }

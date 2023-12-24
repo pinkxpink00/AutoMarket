@@ -1,8 +1,5 @@
-﻿using AutoMarket.DAL.Interfaces;
-using AutoMarket.Domain.Models;
-using AutoMarket.Service.Interfaces;
+﻿using AutoMarket.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using AutoMarket.Domain.Response;
 
 namespace AutoMarket.Controllers
 {
@@ -25,7 +22,7 @@ namespace AutoMarket.Controllers
                 return View(response.Data);
             }
 
-            return RedirectToAction(Error);
+            return RedirectToAction("Error");
         }
     }
 }

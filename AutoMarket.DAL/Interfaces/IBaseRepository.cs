@@ -1,6 +1,4 @@
-﻿using AutoMarket.Domain.Models;
-
-namespace AutoMarket.DAL.Interfaces
+﻿namespace AutoMarket.DAL.Interfaces
 {
     public interface IBaseRepository<T>
     {
