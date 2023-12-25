@@ -24,5 +24,18 @@ namespace AutoMarket.Controllers
 
             return RedirectToAction("Error");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCar(int id)
+        {
+            var response = await _carService.GetCar(id);
+
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data); 
+            }
+
+            return RedirectToAction("Error");
+        }
     }
 }
