@@ -4,6 +4,7 @@
     {
         OK = 200,
         InternalServerError = 500,
-        UserNotFound = 01
+        UserNotFound = 01,
+        CarNotFound = 02
     }
 }
