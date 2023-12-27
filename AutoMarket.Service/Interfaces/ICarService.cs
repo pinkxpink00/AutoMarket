@@ -8,7 +8,7 @@ namespace AutoMarket.Service.Interfaces
     {
         Task <IBaseResponse<IEnumerable<Car>>> GetCars();
 
-        Task <IBaseResponse<Car>> GetCar(int id);
+        Task<IBaseResponse<Car>> GetCar(int id);
 
         Task<IBaseResponse<bool>> CreateCar(CarViewModel carViewModel);
 

@@ -31,6 +31,7 @@ namespace AutoMarket.Service.Implementations
                     return baseResponse;
                 }
 
+                baseResponse.StatusCode = StatusCode.OK;
                 baseResponse.Data = car;
                 return baseResponse;
             }
