@@ -81,7 +81,7 @@ else
                             @if (User.IsInRole("Admin"))
                             {
                                 <hr/>
-                                <a asp-controller="Car" asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Удалить</a>
+                                <a asp-controller="Car" asp-action="DeleteCar" asp-route-id="@car.Id" class="btn btn-danger">Удалить</a>
                                 <a asp-controller="Car" asp-action="Save" asp-route-id="@car.Id" class="btn btn-primary">Изменить</a>
                             }
                         </div>
@@ -98,7 +98,7 @@ else
         const showCardElement = $('#showCardsId');
         const cardElement = $('.card');
         
-        const interval = 2000;
+        const interval = 400;
         
         hideCardElement.click(function(){
             hideCardElement.hide(interval);
