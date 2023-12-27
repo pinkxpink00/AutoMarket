@@ -88,7 +88,7 @@ namespace AutoMarket.Controllers
                 }
             }
 
-            RedirectToAction("GetCars");
+           return RedirectToAction("GetCars");
         }
 
     }
