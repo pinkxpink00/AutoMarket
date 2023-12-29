@@ -19,5 +19,7 @@ namespace AutoMarket.Domain.Models
         public DateTime DateCreate { get; set; }
 
         public TypeCar TypeCar { get; set; }
+
+        public byte[]? Avatar { get; set; }
     }
 }
