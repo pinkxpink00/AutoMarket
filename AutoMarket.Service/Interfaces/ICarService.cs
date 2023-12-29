@@ -8,14 +8,10 @@ namespace AutoMarket.Service.Interfaces
     {
         Task <IBaseResponse<IEnumerable<Car>>> GetCars();
 
-        Task<IBaseResponse<Car>> GetCar(int id);
+        Task<IBaseResponse<Car>> GetCar(long id);
 
-        Task<IBaseResponse<bool>> CreateCar(CarViewModel carViewModel);
+        Task<IBaseResponse<bool>> DeleteCar(long id);
 
-        Task<IBaseResponse<bool>> DeleteCar(int id);
-
-        Task<IBaseResponse<Car>> GetCarByName(string name);
-
-        Task<IBaseResponse<Car>> Edit(int id, CarViewModel model);
+        Task<IBaseResponse<Car>> Edit(long id, CarViewModel model);
     }
 }

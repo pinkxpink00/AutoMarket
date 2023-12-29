@@ -53,42 +53,28 @@ namespace AutoMarket.Controllers
             return RedirectToAction("Error");
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Save(int id)
-        {
-            if (id == 0)
-            {
-                return View();
-            }
-
-            var response = await _carService.GetCar(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data); 
-            }
-
-            return RedirectToAction("Error");
-        }
-
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Save(CarViewModel model)
+        public async Task<IActionResult> Save(CarViewModel viewModel)
         {
+            ModelState.Remove("Id");
+            ModelState.Remove("DateCreate");
             if (ModelState.IsValid)
             {
-                if (model.Id == 0)
+                if (viewModel.Id == 0)
                 {
-                    await _carService.CreateCar(model);
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(viewModel.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)viewModel.Avatar.Length);
+                    }
+                    await _carService.Create(viewModel, imageData);
                 }
                 else
                 {
-                    await _carService.Edit(model.Id, model);
+                    await _carService.Edit(viewModel.Id, viewModel);
                 }
             }
-
-           return RedirectToAction("GetCars");
+            return RedirectToAction("GetCars");
         }
 
     }
