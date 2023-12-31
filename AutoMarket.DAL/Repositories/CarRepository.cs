@@ -47,9 +47,9 @@ namespace AutoMarket.DAL.Repositories
             return await _db.Car.FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public Task<List<Car>> Select()
+        public IQueryable<Car> GetAll()
         {
-            return _db.Car.ToListAsync();
+            return _db.Car;
         }
     }
 }
