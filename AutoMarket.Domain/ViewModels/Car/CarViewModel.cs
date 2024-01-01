@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AutoMarket.Domain.Enum;
 using Microsoft.AspNetCore.Http;
 
 namespace AutoMarket.Domain.ViewModels.Car
