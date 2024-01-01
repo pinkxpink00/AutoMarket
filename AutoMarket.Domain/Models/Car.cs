@@ -4,7 +4,7 @@ namespace AutoMarket.Domain.Models
 {
     public class Car
     {
-        public int Id {get; set; }
+        public long Id {get; set; }
 
         public string Name { get; set; }
 
@@ -19,5 +19,7 @@ namespace AutoMarket.Domain.Models
         public DateTime DateCreate { get; set; }
 
         public TypeCar TypeCar { get; set; }
+
+        public byte[]? Avatar { get; set; }
     }
 }
