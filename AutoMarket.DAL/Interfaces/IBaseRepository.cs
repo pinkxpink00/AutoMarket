@@ -1,6 +1,6 @@
 ﻿namespace AutoMarket.DAL.Interfaces
 {
-    public interface IBaseRepository<T>
+   public interface IBaseRepository<T>
     {
         Task Create(T entity);
 

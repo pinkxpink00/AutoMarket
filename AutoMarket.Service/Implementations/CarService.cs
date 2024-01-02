@@ -11,11 +11,11 @@ namespace AutoMarket.Service.Implementations
 {
     public class CarService : ICarService
     {
-        private readonly IBaseResponse<Car> _carResponse;
+        private readonly IBaseRepository<Car> _carRepository;
 
-        public CarService(IBaseResponse<Car> carResponse)
+        public CarService(IBaseRepository<Car> carRepository)
         {
-            _carResponse = carResponse;
+            _carRepository = carRepository;
         }
 
         public BaseResponse<Dictionary<int, string>> GetTypes()
@@ -46,34 +46,24 @@ namespace AutoMarket.Service.Implementations
             try
             {
                 var cars = _carResponse.GetAll().ToList();
-                if (!cars.Any())
-                {
-                    return new BaseResponse<List<Car>>()
-                    {
-                        Description = "Найдено 0 элементов",
-                        StatusCode = StatusCode.OK
-                    };
-                }
 
-                return new BaseResponse<List<Car>>()
-                {
-                    Data = cars,
-                    StatusCode = StatusCode.OK
-                };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<List<Car>>()
-                {
-                    Description = $"[GetCars] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
+              
             }
         }
 
         public Task<IBaseResponse<CarViewModel>> GetCar(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var car = await _carResponse.GetAll();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public Task<BaseResponse<Dictionary<long, string>>> GetCar(string term)
