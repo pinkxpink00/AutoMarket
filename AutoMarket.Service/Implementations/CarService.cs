@@ -97,10 +97,19 @@ namespace AutoMarket.Service.Implementations
                     Image = car.Avatar,
                 };
 
+                return new BaseResponse<CarViewModel>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = data
+                };
             }
             catch (Exception ex)
             {
-
+                return new BaseResponse<CarViewModel>()
+                {
+                    Description = $"[GetCar] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
             }
         }
 
