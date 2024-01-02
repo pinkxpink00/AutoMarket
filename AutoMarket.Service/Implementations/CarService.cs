@@ -6,6 +6,7 @@ using AutoMarket.Domain.Response;
 using AutoMarket.Domain.ViewModels.Car;
 using AutoMarket.Service.Interfaces;
 using AutoMarket.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoMarket.Service.Implementations
 {
@@ -45,20 +46,57 @@ namespace AutoMarket.Service.Implementations
         {
             try
             {
-                var cars = _carResponse.GetAll().ToList();
+                var cars = _carRepository.GetAll().ToList();
+                if (!cars.Any())
+                {
+                    return new BaseResponse<List<Car>>()
+                    {
+                        Description = "Found 0 objects",
+                        StatusCode = StatusCode.OK
+                    };
+                }
 
+                return new BaseResponse<List<Car>>()
+                {
+                    Data = cars,
+                    StatusCode = StatusCode.OK
+                };
             }
             catch (Exception ex)
             {
-              
+                return new BaseResponse<List<Car>>()
+                {
+                    Description = $"[GetCars] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
             }
         }
 
-        public Task<IBaseResponse<CarViewModel>> GetCar(long id)
+        public async Task<IBaseResponse<CarViewModel>> GetCar(long id)
         {
             try
             {
-                var car = await _carResponse.GetAll();
+                var car = await _carRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (car is null)
+                {
+                    return new BaseResponse<CarViewModel>()
+                    {
+                        Description = "Пользователь не найден",
+                        StatusCode = StatusCode.UserNotFound
+                    };
+                }
+                var data = new CarViewModel()
+                {
+                    DateCreate = car.DateCreate.ToLongDateString(),
+                    Description = car.Description,
+                    Name = car.Name,
+                    Price = car.Price,
+                    TypeCar = car.TypeCar.GetDisplayName(),
+                    Speed = car.Speed,
+                    Model = car.Model,
+                    Image = car.Avatar,
+                };
+
             }
             catch (Exception ex)
             {
