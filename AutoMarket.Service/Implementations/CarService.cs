@@ -113,14 +113,71 @@ namespace AutoMarket.Service.Implementations
             }
         }
 
-        public Task<BaseResponse<Dictionary<long, string>>> GetCar(string term)
+        public async Task<BaseResponse<Dictionary<long, string>>> GetCar(string term)
         {
-            throw new NotImplementedException();
+            var baseResponse = new BaseResponse<Dictionary<long, string>>();
+
+            try
+            {
+                var cars = await _carRepository.GetAll()
+                    .Select(x => new CarViewModel()
+                    {
+                        Id = x.Id,
+                        Speed = x.Speed,
+                        Name = x.Name,
+                        Description = x.Description,
+                        Model = x.Model,
+                        DateCreate = x.DateCreate.ToLongDateString(),
+                        Price = x.Price,
+                        TypeCar = x.TypeCar.GetDisplayName()
+                    })
+                    .Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
+                    .ToDictionaryAsync(x => x.Id, t => t.Name);
+
+                    baseResponse.Data = cars;
+                    return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Dictionary<long, string>>()
+                {
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
-        public Task<IBaseResponse<Car>> Create(CarViewModel car, byte[] imageData)
+        public async Task<IBaseResponse<Car>> Create(CarViewModel model, byte[] imageData)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var car = new Car()
+                {
+                    Name = model.Name,
+                    Model = model.Model,
+                    Description = model.Description,
+                    DateCreate = DateTime.Now,
+                    Speed = model.Speed,
+                    TypeCar = (TypeCar)Convert.ToInt32(model.TypeCar),
+                    Price = model.Price,
+                    Avatar = imageData
+                };
+                await _carRepository.Create(car);
+
+                return new BaseResponse<Car>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = car
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[Create] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
         public Task<IBaseResponse<bool>> DeleteCar(long id)
