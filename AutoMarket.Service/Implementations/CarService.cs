@@ -180,14 +180,79 @@ namespace AutoMarket.Service.Implementations
             }
         }
 
-        public Task<IBaseResponse<bool>> DeleteCar(long id)
+        public async Task<IBaseResponse<bool>> DeleteCar(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var car = await _carRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (car == null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Description = "User not found",
+                        StatusCode = StatusCode.UserNotFound,
+                        Data = false
+                    };
+                }
+
+                await _carRepository.Delete(car);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[DeleteCar] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
-        public Task<IBaseResponse<Car>> Edit(long id, CarViewModel model)
+
+        public async Task<IBaseResponse<Car>> Edit(long id, CarViewModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var car = await _carRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (car == null)
+                {
+                    return new BaseResponse<Car>()
+                    {
+                        Description = "Car not found",
+                        StatusCode = StatusCode.CarNotFound
+                    };
+                }
+
+                car.Description = model.Description;
+                car.Model = model.Model;
+                car.Price = model.Price;
+                car.Speed = model.Speed;
+                car.DateCreate = DateTime.ParseExact(model.DateCreate, "yyyyMMdd HH:mm", null);
+                car.Name = model.Name;
+
+                await _carRepository.Update(car);
+
+
+                return new BaseResponse<Car>()
+                {
+                    Data = car,
+                    StatusCode = StatusCode.OK,
+                };
+                // TypeCar
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[Edit] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
     }
 }
