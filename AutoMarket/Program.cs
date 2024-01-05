@@ -1,3 +1,4 @@
+using AutoMarket;
 using AutoMarket.DAL;
 using AutoMarket.DAL.Interfaces;
 using AutoMarket.DAL.Repositories;
@@ -14,8 +15,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddScoped<ICarRepository, CarRepository>();
-builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.InitializeRepositories();
+builder.Services.InitializeServices();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

@@ -15,9 +15,9 @@ namespace AutoMarket.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCars()
+        public IActionResult GetCars()
         {
-            var response = await _carService.GetCars();
+            var response =  _carService.GetCars();
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -54,42 +54,44 @@ namespace AutoMarket.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save(int id)
         {
             if (id == 0)
-            {
-                return View();
-            }
+                return PartialView();
 
             var response = await _carService.GetCar(id);
-
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data); 
+                return PartialView(response.Data);
             }
-
-            return RedirectToAction("Error");
+            ModelState.AddModelError("", response.Description);
+            return PartialView();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Save(CarViewModel model)
+        public async Task<IActionResult> Save(CarViewModel viewModel)
         {
+            ModelState.Remove("Id");
+            ModelState.Remove("DateCreate");
             if (ModelState.IsValid)
             {
-                if (model.Id == 0)
+                if (viewModel.Id == 0)
                 {
-                    await _carService.CreateCar(model);
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(viewModel.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)viewModel.Avatar.Length);
+                    }
+                    await _carService.Create(viewModel, imageData);
                 }
                 else
                 {
-                    await _carService.Edit(model.Id, model);
+                    await _carService.Edit(viewModel.Id, viewModel);
                 }
             }
-
-           return RedirectToAction("GetCars");
+            return RedirectToAction("GetCars");
         }
+
 
     }
 }
